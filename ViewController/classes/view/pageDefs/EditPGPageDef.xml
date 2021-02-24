@@ -82,6 +82,7 @@
           <Item Value="Color"/>
           <Item Value="Wash"/>
           <Item Value="Bpo"/>
+          <Item Value="Qty"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

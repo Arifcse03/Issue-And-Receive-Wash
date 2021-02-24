@@ -158,13 +158,15 @@
        LineEO.ISSUANCE_DATE, 
        LineEO.Received_By,
        LineEO.BPO_ID,
-v.BPO,
-v.SEASON,
-v.STYLE,
-v.COLOR,
-v.WASH_NAME WASH
-FROM MNJ_MFG_ISSUE_REC_WASH_L LineEO,XX_ORDER_INFO_v V
-where LineEO.BPO_ID=V.BPO_ID
+bpo.BPO,
+hh.SEASON,
+hh.STYLE,
+ll.COLOR,
+ll.WASH_NAME WASH,
+bpo.QTY
+FROM MNJ_MFG_ISSUE_REC_WASH_L LineEO,xx_om_poc_h_t hh,xx_om_poc_l_t ll,xx_om_bpo_info_t bpo
+where LineEO.BPO_ID=bpo.BPO_ID
+and bpo.fob_id=ll.fob_id and ll.poc_id=hh.poc_id
 ORDER BY LineEO.ISSUANCE_CHALLAN_NO]]>
   </SQLQuery>
   <EntityUsage
@@ -522,6 +524,20 @@ ORDER BY LineEO.ISSUANCE_CHALLAN_NO]]>
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Qty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="QTY"
+    Expression="QTY"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
   </ViewAttribute>
   <ViewLinkAccessor

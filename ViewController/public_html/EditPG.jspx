@@ -351,9 +351,17 @@
                              sortProperty="Attribute4" visible="false">
                     <af:outputText value="#{row.Attribute4}" id="ot15"/>
                   </af:column>
+                  <af:column headerText="Qty"
+                             id="c67" align="center" sortable="true"
+                             filterable="true" sortProperty="Qty">
+                    <af:outputText value="#{row.Qty}" id="ot41">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.LineVO1.hints.Qty.format}"/>
+                    </af:outputText>
+                  </af:column>
                   <af:column sortProperty="Quantity" filterable="true"
                              sortable="true" headerText="Quantity" id="c1"
-                             align="center">
+                             align="center" visible="false">
                     <af:inputText value="#{row.bindings.Quantity.inputValue}"
                                   label="#{bindings.LineVO1.hints.Quantity.label}"
                                   required="#{bindings.LineVO1.hints.Quantity.mandatory}"
