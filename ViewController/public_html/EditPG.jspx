@@ -1053,6 +1053,13 @@
                            id="c56">
                   <af:outputText value="#{row.TransType}" id="ot30"/>
                 </af:column>
+                <af:column headerText="#{bindings.FillBposVO1.hints.PocId.label}"
+                           id="c66" visible="false">
+                  <af:outputText value="#{row.PocId}" id="ot40">
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.FillBposVO1.hints.PocId.format}"/>
+                  </af:outputText>
+                </af:column>
               </af:table>
             </af:panelCollection>
           </af:dialog>

@@ -86,6 +86,16 @@ public class FillBposVORowImpl extends ViewRowImpl {
             }
         }
         ,
+        PocId {
+            public Object get(FillBposVORowImpl obj) {
+                return obj.getPocId();
+            }
+
+            public void put(FillBposVORowImpl obj, Object value) {
+                obj.setPocId((Number)value);
+            }
+        }
+        ,
         BpoNo {
             public Object get(FillBposVORowImpl obj) {
                 return obj.getBpoNo();
@@ -191,6 +201,7 @@ public class FillBposVORowImpl extends ViewRowImpl {
     public static final int COLOR = AttributesEnum.Color.index();
     public static final int WASH = AttributesEnum.Wash.index();
     public static final int TRANSTYPE = AttributesEnum.TransType.index();
+    public static final int POCID = AttributesEnum.PocId.index();
     public static final int BPONO = AttributesEnum.BpoNo.index();
     public static final int STNNUMBER = AttributesEnum.StnNumber.index();
     public static final int ORDEREDQTY = AttributesEnum.OrderedQty.index();
@@ -363,6 +374,22 @@ public class FillBposVORowImpl extends ViewRowImpl {
      */
     public void setTransType(String value) {
         setAttributeInternal(TRANSTYPE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PocId.
+     * @return the PocId
+     */
+    public Number getPocId() {
+        return (Number) getAttributeInternal(POCID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PocId.
+     * @param value value to set the  PocId
+     */
+    public void setPocId(Number value) {
+        setAttributeInternal(POCID, value);
     }
 
     /**

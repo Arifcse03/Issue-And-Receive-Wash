@@ -331,6 +331,7 @@
           <Item Value="Bpo"/>
           <Item Value="Wash"/>
           <Item Value="TransType"/>
+          <Item Value="PocId"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

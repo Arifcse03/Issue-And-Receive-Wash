@@ -116,7 +116,7 @@ public class MainAMImpl extends ApplicationModuleImpl implements MainAM {
         ViewObject vo = getLineHeaderEOView1();
         String cutNo = null;
         try {
-            cutNo = vo.getCurrentRow().getAttribute("Style").toString();
+            cutNo = vo.getCurrentRow().getAttribute("PocId").toString();
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
@@ -352,7 +352,8 @@ public class MainAMImpl extends ApplicationModuleImpl implements MainAM {
             System.out.println("Wher clause season no -->" + getseason());
 
             ViewObject vo = getFillBposVO1();
-            vo.setWhereClause("STYLE = '" + getstyle() + "'" + "AND SEASON = '" + getseason() + "'");
+            //vo.setWhereClause("STYLE = '" + getstyle() + "'" + "AND SEASON = '" + getseason() + "'");
+            vo.setWhereClause("POC_ID= '" + getstyle() + "'");
             vo.executeQuery();
             System.out.println(vo.getQuery());
         } catch (Exception e) {
