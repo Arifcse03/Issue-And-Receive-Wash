@@ -32,10 +32,10 @@
     <TransientExpression><![CDATA[adf.context.sessionScope.orgId]]></TransientExpression>
     <Properties>
       <SchemaBasedProperties>
-        <DISPLAYWIDTH
-          Value="20"/>
         <LABEL
           ResId="mnj.mfg.model.views.HeaderVO_LABEL"/>
+        <DISPLAYWIDTH
+          Value="20"/>
       </SchemaBasedProperties>
     </Properties>
   </Variable>

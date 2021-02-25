@@ -869,18 +869,37 @@
                                             id="sbc1"
                                             disabled="#{row.BalanceQuantity  lt '1' }"/>
                 </af:column>
-                <af:column headerText="Bpo Id"
-                           id="c61" align="center" sortable="true"
-                           filterable="true" sortProperty="BpoId">
-                  <af:outputText value="#{row.BpoId}" id="ot35">
+                <af:column headerText="Size" id="c58" align="center"
+                           sortable="true" filterable="true"
+                           sortProperty="SizeVal">
+                  <af:outputText value="#{row.SizeVal}" id="ot32"/>
+                </af:column>
+                <af:column headerText="Inseem" id="c59" align="center"
+                           sortable="true" filterable="true"
+                           sortProperty="Inseem">
+                  <af:outputText value="#{row.Inseem}" id="ot33"/>
+                </af:column>
+                <af:column headerText="Qty" id="c60" align="center"
+                           sortable="true" filterable="true"
+                           sortProperty="TotalQty">
+                  <af:outputText value="#{row.TotalQty}" id="ot34">
                     <af:convertNumber groupingUsed="false"
-                                      pattern="#{bindings.papulateSizeVo1.hints.BpoId.format}"/>
+                                      pattern="#{bindings.papulateSizeVo1.hints.TotalQty.format}"/>
                   </af:outputText>
                 </af:column>
-                <af:column headerText="BPO"
-                           id="c3" align="center" sortable="true"
-                           filterable="true" sortProperty="Bpo">
+                <af:column headerText="BPO" id="c3" align="center"
+                           sortable="true" filterable="true" sortProperty="Bpo">
                   <af:outputText value="#{row.Bpo}" id="ot6"/>
+                </af:column>
+                <af:column headerText="Style" id="c64" align="center"
+                           sortable="true" filterable="true"
+                           sortProperty="Style">
+                  <af:outputText value="#{row.Style}" id="ot38"/>
+                </af:column>
+                <af:column headerText="Season" id="c63" align="center"
+                           sortable="true" filterable="true"
+                           sortProperty="Season">
+                  <af:outputText value="#{row.Season}" id="ot37"/>
                 </af:column>
                 <af:column headerText="Color"
                            id="c62" align="center" sortable="true"
@@ -891,32 +910,6 @@
                            id="c68" align="center" sortable="true"
                            filterable="true" sortProperty="WashName">
                   <af:outputText value="#{row.WashName}" id="ot42"/>
-                </af:column>
-                <af:column headerText="Season"
-                           id="c63" align="center" sortable="true"
-                           filterable="true" sortProperty="Season">
-                  <af:outputText value="#{row.Season}" id="ot37"/>
-                </af:column>
-                <af:column headerText="Style"
-                           id="c64" align="center" sortable="true"
-                           filterable="true" sortProperty="Style">
-                  <af:outputText value="#{row.Style}" id="ot38"/>
-                </af:column>
-                <af:column headerText="Total Qty"
-                           id="c58" align="center" sortable="true"
-                           filterable="true" sortProperty="SizeVal">
-                  <af:outputText value="#{row.SizeVal}" id="ot32"/>
-                </af:column>
-                <af:column headerText="#{bindings.papulateSizeVo1.hints.Inseem.label}"
-                           id="c59">
-                  <af:outputText value="#{row.Inseem}" id="ot33"/>
-                </af:column>
-                <af:column headerText="#{bindings.papulateSizeVo1.hints.TotalQty.label}"
-                           id="c60">
-                  <af:outputText value="#{row.TotalQty}" id="ot34">
-                    <af:convertNumber groupingUsed="false"
-                                      pattern="#{bindings.papulateSizeVo1.hints.TotalQty.format}"/>
-                  </af:outputText>
                 </af:column>
                 <af:column headerText="#{bindings.papulateSizeVo1.hints.IssuedQuantity.label}"
                            id="c4" visible="false">
@@ -931,6 +924,14 @@
                                  visible="true">
                     <af:convertNumber groupingUsed="false"
                                       pattern="#{bindings.papulateSizeVo1.hints.BalanceQuantity.format}"/>
+                  </af:outputText>
+                </af:column>
+                <af:column headerText="Bpo Id" id="c61" align="center"
+                           sortable="true" filterable="true"
+                           sortProperty="BpoId">
+                  <af:outputText value="#{row.BpoId}" id="ot35">
+                    <af:convertNumber groupingUsed="false"
+                                      pattern="#{bindings.papulateSizeVo1.hints.BpoId.format}"/>
                   </af:outputText>
                 </af:column>
               </af:table>
