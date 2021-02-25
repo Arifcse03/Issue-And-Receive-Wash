@@ -361,6 +361,7 @@
           <Item Value="Color"/>
           <Item Value="Season"/>
           <Item Value="Bpo"/>
+          <Item Value="WashName"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

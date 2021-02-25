@@ -124,6 +124,16 @@ public class papulateSizeVoRowImpl extends ViewRowImpl {
             }
         }
         ,
+        WashName {
+            public Object get(papulateSizeVoRowImpl obj) {
+                return obj.getWashName();
+            }
+
+            public void put(papulateSizeVoRowImpl obj, Object value) {
+                obj.setWashName((String)value);
+            }
+        }
+        ,
         Sizee {
             public Object get(papulateSizeVoRowImpl obj) {
                 return obj.getSizee();
@@ -233,6 +243,7 @@ public class papulateSizeVoRowImpl extends ViewRowImpl {
     public static final int SEASON = AttributesEnum.Season.index();
     public static final int ISSUEDQUANTITY = AttributesEnum.IssuedQuantity.index();
     public static final int BALANCEQUANTITY = AttributesEnum.BalanceQuantity.index();
+    public static final int WASHNAME = AttributesEnum.WashName.index();
     public static final int SIZEE = AttributesEnum.Sizee.index();
     public static final int INSEME = AttributesEnum.Inseme.index();
     public static final int INSEAMSIZECONCAT = AttributesEnum.InseamSizeConcat.index();
@@ -328,6 +339,22 @@ public class papulateSizeVoRowImpl extends ViewRowImpl {
         setAttributeInternal(BALANCEQUANTITY, value);
     }
 
+
+    /**
+     * Gets the attribute value for the calculated attribute WashName.
+     * @return the WashName
+     */
+    public String getWashName() {
+        return (String) getAttributeInternal(WASHNAME);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute WashName.
+     * @param value value to set the  WashName
+     */
+    public void setWashName(String value) {
+        setAttributeInternal(WASHNAME, value);
+    }
 
     /**
      * Gets the attribute value for the calculated attribute SizeVal.

@@ -30,103 +30,101 @@
     <TransientExpression><![CDATA[adf.context.sessionScope.Transaction]]></TransientExpression>
   </Variable>
   <SQLQuery>
-    <![CDATA[--/ Formatted on 10/19/2020 9:21:49 AM (QP5 v5.256.13226.35510) /
---/ Formatted Azharul Majid on 5-Jan-2020 /
-SELECT aa.bpo,
-aa.style,
-aa.BPO_ID,
-aa.color,
-aa.TRANS_TYPE,
-aa.inseem,
-aa.size_val,
-SUM (aa.total_qty) total_qty,
-aa.season,
---------------- added on 8.jan.18 to show balance 0f size quantity-----------------
+    <![CDATA[/* Formatted on 2/24/2021 5:12:16 PM (QP5 v5.256.13226.35510) */
+  SELECT aa.bpo,
+         aa.style,
+         aa.BPO_ID,
+         aa.color,
+         aa.TRANS_TYPE,
+         aa.inseem,
+         aa.size_val,
+         SUM (aa.total_qty) total_qty,
+         aa.season,
+         --------------- added on 8.jan.18 to show balance 0f size quantity-----------------
+         bb.Issued_quantity,
+         (SUM (aa.total_qty) - bb.Issued_quantity) balance_quantity,
+         aa.wash_NAME
+    --------------- added on 8.jan.18 to show balance 0f size quantity-----------------
+    FROM (SELECT V.bpo,
+                 V.style,
+                 V.season,
+                 V.BPO_ID,
+                 V.color,
+                 V.WASH_NAME,
+                 'STICHING' TRANS_TYPE,
+                 ddd.INSEEM inseem,
+                 ddd.SIZE_VAL size_val,
+                 ddd.CUTQTY total_qty
+            FROM MNJ_MFG_LINEOUTPUT H,
+                 MNJ_MFG_LINEOUTPUT_DETAIL DDD,
+                 MNJ_MFG_LINEOUTPUT_SBLINE LL,
+                 XX_ORDER_INFO_V V
+           WHERE     LL.OUT_SUBLINE_ID = DDD.OUT_SUBLINE_ID
+                 AND H.PROD_TRANS_ID = LL.PROD_TRANS_ID
+                 AND V.BPO_ID = LL.BPO_ID
+          UNION ALL
+          SELECT V.BPO,
+                 V.STYLE style,
+                 V.season,
+                 V.BPO_ID,
+                 V.COLOR,
+                 V.WASH_NAME,
+                 'FINISHING' TRANS_TYPE,
+                 TO_CHAR (mmfd.INSEAM) inseem,
+                 mmfd.SIZE_VALUE size_val,
+                 TO_NUMBER (mmfd.DAY_PROD) total_qty
+            FROM MNJ_MFG_FINISH_PROD_H MMFH,
+                 MNJ_MFG_FINISH_PROD_L MMFL,
+                 MNJ_MFG_FINISH_PROD_D MMFD,
+                 XX_ORDER_INFO_V V
+           WHERE     MMFH.HEADER_ID = MMFL.HEADER_ID
+                 AND MMFL.LINE_ID = MMFD.LINE_ID
+                 AND MMFL.BPO_ID = V.BPO_ID) aa,
+         --------------- added on 8.jan.18 to show balance 0f size quantity-----------------
 
-bb.Issued_quantity,
-(SUM (aa.total_qty) - bb.Issued_quantity) balance_quantity
---------------- added on 8.jan.18 to show balance 0f size quantity-----------------
-FROM( SELECT V.bpo,
-V.style,
-V.season,
-V.BPO_ID,
-V.color,
-'STICHING' TRANS_TYPE,
-ddd.INSEEM inseem,
-ddd.SIZE_VAL size_val,
-ddd.CUTQTY total_qty
-FROM MNJ_MFG_LINEOUTPUT H,
-MNJ_MFG_LINEOUTPUT_DETAIL DDD,
-MNJ_MFG_LINEOUTPUT_SBLINE LL,
-XX_ORDER_INFO_V V
-WHERE LL.OUT_SUBLINE_ID = DDD.OUT_SUBLINE_ID
-AND H.PROD_TRANS_ID = LL.PROD_TRANS_ID
-AND V.BPO_ID=LL.BPO_ID
-UNION ALL
-SELECT V.BPO,
-V.STYLE style,
-V.season,
-V.BPO_ID,
-V.COLOR,
-'FINISHING' TRANS_TYPE,
-TO_CHAR (mmfd.INSEAM) inseem,
-mmfd.SIZE_VALUE size_val,
-TO_NUMBER (mmfd.DAY_PROD) total_qty
-FROM MNJ_MFG_FINISH_PROD_H MMFH,
-MNJ_MFG_FINISH_PROD_L MMFL,
-MNJ_MFG_FINISH_PROD_D MMFD,
-XX_ORDER_INFO_V V
-WHERE MMFH.HEADER_ID = MMFL.HEADER_ID
-AND MMFL.LINE_ID = MMFD.LINE_ID
-AND MMFL.BPO_ID=V.BPO_ID ) aa,
---------------- added on 8.jan.18 to show balance 0f size quantity-----------------
+         (  SELECT V.bpo,
+                   V.BPO_ID,
+                   V.color,
+                   V.STYLE,
+                   V.season,
+                   isd.attribute1 Inseam,
+                   isd.SIZE_INSEAM,
+                   SUM (isd.quantity) Issued_quantity
+              FROM MNJ_MFG_ISSUE_REC_WASH_L_H lh,
+                   MNJ_MFG_ISSUE_REC_WASH_L irwl,
+                   MNJ_MFG_ISSUE_INSEAM_SIZE_D isd,
+                   XX_ORDER_INFO_V V
+             WHERE     1 = 1
+                   AND lh.line_id = irwl.header_id
+                   AND irwl.line_id = isd.line_id(+)
+                   AND irwl.WASH_TYPE = 'Bulk' -- Added by Azhar on 5-Jan-2020. Re-wash will not be considered for Balance qty
+                   AND V.POC_ID = LH.POC_ID
+          GROUP BY V.bpo,
+                   V.BPO_ID,
+                   V.color,
+                   V.WASH_NAME,
+                   V.STYLE,
+                   V.season,
+                   isd.attribute1,
+                   isd.SIZE_INSEAM) bb
+   --------------- added on 8.jan.18 to show balance 0f size quantity-----------------
 
-(SELECT V.bpo,
-V.BPO_ID,
-V.color,
-V.STYLE,
-V.season,
-isd.attribute1 Inseam,
-isd.SIZE_INSEAM,
-SUM (isd.quantity) Issued_quantity
-FROM MNJ_MFG_ISSUE_REC_WASH_L_H lh,
-MNJ_MFG_ISSUE_REC_WASH_L irwl,
-MNJ_MFG_ISSUE_INSEAM_SIZE_D isd,
-XX_ORDER_INFO_V V
-WHERE 1 = 1
-AND lh.line_id = irwl.header_id
-AND irwl.line_id = isd.line_id(+)
-AND irwl.WASH_TYPE = 'Bulk' -- Added by Azhar on 5-Jan-2020. Re-wash will not be considered for Balance qty
-AND V.POC_ID = LH.POC_ID
-GROUP BY V.bpo,
-V.BPO_ID,
-V.color,
-V.STYLE,
-V.season,
-isd.attribute1,
-isd.SIZE_INSEAM ) bb
---------------- added on 8.jan.18 to show balance 0f size quantity-----------------
-
-WHERE TRANS_TYPE = :p_trans_type
---------------- added on 8.jan.18 to show balance 0f size quantity-----------------
-
-AND aa.bpo = bb.bpo(+)
-AND aa.BPO_ID = bb.BPO_ID(+)
-AND aa.color = bb.color(+)
-AND aa.style = bb.style(+)
-AND aa.season = bb.season(+)
-AND aa.inseem = bb.inseam(+)
-AND aa.size_val = bb.SIZE_INSEAM(+)
+   WHERE TRANS_TYPE = :p_trans_type --------------- added on 8.jan.18 to show balance 0f size quantity-----------------
+         AND aa.BPO_ID = bb.BPO_ID(+) /* AND aa.color = bb.color(+)
+                                      AND aa.style = bb.style(+)
+                                      AND aa.season = bb.season(+)*/
+         AND aa.inseem = bb.inseam(+) AND aa.size_val = bb.SIZE_INSEAM(+)
 --------------- added on 8.jan.18 to show balance 0f size quantity-----------------
 GROUP BY aa.bpo,
-aa.style,
-aa.BPO_ID,
-aa.color,
-aa.TRANS_TYPE,
-aa.inseem,
-aa.size_val,
-aa.season,
-bb.Issued_quantity
+         aa.style,
+         aa.BPO_ID,
+         aa.color,
+         aa.wash_NAME,
+         aa.TRANS_TYPE,
+         aa.inseem,
+         aa.size_val,
+         aa.season,
+         bb.Issued_quantity
 ORDER BY aa.size_val]]>
   </SQLQuery>
   <ViewAttribute
@@ -288,6 +286,21 @@ ORDER BY aa.size_val]]>
     SQLType="NUMERIC">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="WashName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="WASH_NAME"
+    Expression="WASH_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute

@@ -887,6 +887,11 @@
                            filterable="true" sortProperty="Color">
                   <af:outputText value="#{row.Color}" id="ot36"/>
                 </af:column>
+                <af:column headerText="Wash"
+                           id="c68" align="center" sortable="true"
+                           filterable="true" sortProperty="WashName">
+                  <af:outputText value="#{row.WashName}" id="ot42"/>
+                </af:column>
                 <af:column headerText="Season"
                            id="c63" align="center" sortable="true"
                            filterable="true" sortProperty="Season">

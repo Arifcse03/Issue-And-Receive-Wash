@@ -105,9 +105,10 @@ public class MainAMImpl extends ApplicationModuleImpl implements MainAM {
         ViewObject vo = getpapulateSizeVo1();
        // vo.setWhereClause("STYLE = '" + getstyle() + "' AND BPO_NO = '" +getBpo() + "'");
         
-        vo.setWhereClause("STYLE = '" + getstyle() + "' AND SEASON = '" + getseason() +
-                              "' AND COLOR = '" + getColor() + "' AND BPO = '" +getBpo() + "'");
+      /*  vo.setWhereClause("STYLE = '" + getstyle() + "' AND SEASON = '" + getseason() +
+                              "' AND COLOR = '" + getColor() + "' AND BPO = '" +getBpo() + "'");*/
         
+      vo.setWhereClause("BPO_ID = '" +getBpo() + "'");
         vo.executeQuery();
     }
 
@@ -385,7 +386,7 @@ public class MainAMImpl extends ApplicationModuleImpl implements MainAM {
         ViewObject vo = getLineVO1();
         
         //here arif vai is changing Attribute1 to Bpo 
-        Result = vo.getCurrentRow().getAttribute("Bpo").toString();
+        Result = vo.getCurrentRow().getAttribute("BpoId").toString();
         return Result;
     }
 
