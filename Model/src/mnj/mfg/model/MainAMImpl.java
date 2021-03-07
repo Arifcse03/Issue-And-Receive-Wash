@@ -481,11 +481,15 @@ public class MainAMImpl extends ApplicationModuleImpl implements MainAM {
         System.out.println("stn " + stn);
         System.out.println("color " + color);
         System.out.println("challan_no " + challan_no);
+        /***** 
         ViewObject hvo = this.getLineHeaderEOView1();
         Row hrow = hvo.getCurrentRow();
+        ViewObject vo=this.getReceiveDetailVO1();
+        Row bporow = vo.getCurrentRow();
+        String bpoid=null;
         String buyer = null;
         String style = null;
-        String season = null;
+        String season = null;/
         try {
             buyer = hrow.getAttribute("Attribute1").toString();
         } catch (Exception e) {
@@ -501,24 +505,26 @@ public class MainAMImpl extends ApplicationModuleImpl implements MainAM {
         } catch (Exception e) {
             ;
         }
+        
         System.out.println(buyer);
         System.out.println(style);
-        System.out.println(season);
+        System.out.println(season); ****/
+        
+        //added by arif to filter similarpopsizevo with bpo id
         ViewObject Sizevo = this.getsimilarPopSizeVO1();
-        Sizevo.setWhereClause("BPO1 = '" + bpo + "' AND STN1 = '" + stn +
-                              "' AND COLOR1 = '" + color + "' AND STYLE = '" + style +
-                              "' AND SEASON = '" + season +
-                              "' AND ISSUANCE_CHALLAN_NO ='" + challan_no +  // commented on 1 april 18  // comment ommited on 10 may 18
-                              "'");
-        Sizevo.executeQuery();
+        Sizevo.setWhereClause(" STN1 = '" + stn +
+                              "' AND ISSUANCE_CHALLAN_NO ='" + challan_no +  "'");
+       
         
-        
-        System.out.println("set where clause =========      "+"BPO1 = '" + bpo + "' AND STN1 = '" + stn +
+        /*
+        System.out.println("set where clause =========      "+" STN1 = '" + stn +
                               "' AND COLOR1 = '" + color + "' AND STYLE = '" + style +
                               "' AND SEASON = '" + season +
                             //  "' AND ISSUANCE_CHALLAN_NO ='" + challan_no +  // commented on 1 april 18 
-                              "'");
+                              "'");*/
         
+        System.out.println("set where clause =========      "+" STN1 = '" + stn +  "'");
+        Sizevo.executeQuery();
         System.out.println(Sizevo.getQuery());
         System.out.println("Row Count " + Sizevo.getRowCount());
     }

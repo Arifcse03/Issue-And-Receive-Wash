@@ -24,55 +24,14 @@
     </SchemaBasedProperties>
   </Properties>
   <SQLQuery>
-    <![CDATA[/*
-select attribute1,size_inseam,quantity,header_id,line_id,Attribute2 STN
-from 
-(
-SELECT d.attribute1, d.size_inseam,
-       (SELECT SUM (mmbir.quantity)
-          FROM mnj_mfg_bundle_iss_rec_h mmbirh,
-               mnj_mfg_bundle_iss_rec_st_fin mmbir
-         WHERE mmbirh.header_id = mmbir.header_id
-           AND mmbirh.form_type = 'BI'
-           AND mmbir.size_id = d.size_inseam
-           AND mmbir.attribute1 = d.attribute1
-           AND mmbirh.division_id IS NOT NULL
-           AND mmbirh.delivery_challan_no =
-                  (SELECT DISTINCT mmbirh1.receive_doc
-                              FROM mnj_mfg_bundle_iss_rec_h mmbirh1
-                             WHERE mmbirh1.receving_challan_no = h.receive_no
-                               -- AND MMBIRH1.DIVISION_ID         = h.ORG_ID
-                               AND ROWNUM = 1)) quantity,
-       h.header_id,l.line_id,l.Attribute2
-  FROM mnj_mfg_issue_rec_wash_h h,
-       mnj_mfg_issue_rec_wash_l l,
-       mnj_mfg_issue_inseam_size_d d
- WHERE h.header_id = l.header_id 
-   AND l.line_id = d.line_id
-   and NVL(h.TRANSACTION_TYPE,'PPP') NOT IN ('After Stitch Issue to 3rd Party','After Finish Issue to 3rd party','Ready For Finish Department','PPP')
-UNION ALL
-SELECT d.attribute1, d.size_inseam, D.quantity,
-       h.header_id,l.line_id,l.Attribute2
-  FROM mnj_mfg_issue_rec_wash_h h,
-       mnj_mfg_issue_rec_wash_l l,
-       mnj_mfg_issue_inseam_size_d d
- WHERE h.header_id = l.header_id 
-   AND l.line_id = d.line_id
-   and NVL(h.TRANSACTION_TYPE,'PPP') IN ('After Stitch Issue to 3rd Party','After Finish Issue to 3rd party','Ready For Finish Department')   
-) res
-where res.quantity is not null
-*/
-
-
-
-SELECT MNJ_ISSUEREC_WASH_DEL_SIZE_E1.ATTRIBUTE1,
+    <![CDATA[SELECT MNJ_ISSUEREC_WASH_DEL_SIZE_E1.ATTRIBUTE1,
        MNJ_ISSUEREC_WASH_DEL_SIZE_E1.size_inseam,
        MNJ_ISSUEREC_WASH_DEL_SIZE_E1.QUANTITY, 
        null HEADER_ID,
        null line_id,
        MNJ_ISSUE_REC_WASH_DEL_L_EO.ATTRIBUTE2 STN,
        MNJ_ISSUE_REC_WASH_DEL_L_EO.ATTRIBUTE3 COLOR1,
-       MNJ_ISSUE_REC_WASH_DEL_L_EO.ATTRIBUTE2 STN1,
+       MNJ_ISSUE_REC_WASH_DEL_L_EO.BPO_ID STN1,
        MNJ_ISSUE_REC_WASH_DEL_L_EO.ATTRIBUTE1 BPO1,
        MNJ_ISSUE_REC_WASH_DEL_L_EO.ATTRIBUTE6 BUYER,
        MNJ_ISSUE_REC_WASH_DEL_L_EO.ATTRIBUTE5 STYLE,

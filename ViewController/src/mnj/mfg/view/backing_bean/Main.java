@@ -291,7 +291,7 @@ public class Main {
         DCIteratorBinding itorBinding =
             binding.findIteratorBinding("ReceiveDetailVO1Iterator");
         String bpo = null;
-        String stn = null;
+        String BpoId = null;
         String color = null;
         String challan_no = null;
         try {
@@ -301,8 +301,8 @@ public class Main {
             ;
         }
         try {
-            stn =
-          itorBinding.getCurrentRow().getAttribute("Attribute2").toString();
+            BpoId =
+          itorBinding.getCurrentRow().getAttribute("BpoId").toString();
         } catch (Exception e) {
             ;
         }
@@ -322,7 +322,7 @@ public class Main {
         OperationBinding operationBinding =
             executeOperation("setSizeWhereClause");
         operationBinding.getParamsMap().put("bpo", bpo);
-        operationBinding.getParamsMap().put("stn", stn);
+        operationBinding.getParamsMap().put("stn", BpoId);
         operationBinding.getParamsMap().put("color", color);
         operationBinding.getParamsMap().put("challan_no", challan_no);
         
@@ -330,7 +330,7 @@ public class Main {
         operationBinding.execute();
         
         System.out.println("=====================bpo=============="+ bpo);
-        System.out.println("=====================stn=============="+ stn); 
+        System.out.println("=====================stn=============="+ BpoId); 
         System.out.println("=====================color=============="+ color);
         System.out.println("=====================challan_no=============="+ challan_no);
         
