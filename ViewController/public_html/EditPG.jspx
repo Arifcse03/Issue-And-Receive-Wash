@@ -591,9 +591,15 @@
                           rowSelection="single" id="t5"
                           partialTriggers="::cb9 ::cb10 :::pc6:t13" width="100%"
                           binding="#{Main.receivingLinesTable}">
-                  <af:column headerText="BPO" id="c45" align="center"
-                             sortable="true" filterable="true"
-                             sortProperty="Attribute1" width="220">
+                  <af:column headerText="#{bindings.ReceiveDetailVO1.hints.PocId.label}"
+                             id="c69" visible="false">
+                    <af:outputText value="#{row.PocId}" id="ot43">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.ReceiveDetailVO1.hints.PocId.format}"/>
+                    </af:outputText>
+                  </af:column>
+                  <af:column headerText="BPO"
+                             id="c45" width="130">
                     <af:inputListOfValues id="inputListOfValues1"
                                           popupTitle="Search and Select: #{bindings.ReceiveDetailVO1.hints.Attribute1.label}"
                                           value="#{row.bindings.Attribute1.inputValue}"
@@ -601,14 +607,22 @@
                                           required="#{bindings.ReceiveDetailVO1.hints.Attribute1.mandatory}"
                                           columns="#{bindings.ReceiveDetailVO1.hints.Attribute1.displayWidth}"
                                           shortDesc="#{bindings.ReceiveDetailVO1.hints.Attribute1.tooltip}"
-                                          autoSubmit="true"
-                                          contentStyle="width:200px;">
+                                          autoSubmit="true">
                       <f:validator binding="#{row.bindings.Attribute1.validator}"/>
                     </af:inputListOfValues>
                   </af:column>
+                  <af:column headerText="BpoId"
+                             id="c70" align="center" sortable="true"
+                             filterable="true" sortProperty="BpoId">
+                    <af:outputText value="#{row.BpoId}" id="ot44"
+                                   partialTriggers="inputListOfValues1">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.ReceiveDetailVO1.hints.BpoId.format}"/>
+                    </af:outputText>
+                  </af:column>
                   <af:column sortProperty="Attribute2" filterable="true"
-                             sortable="true" headerText="STN" id="c12"
-                             align="center" width="220">
+                             sortable="true" headerText="BPO ID" id="c12"
+                             align="center" width="220" visible="false">
                     <af:inputText value="#{row.bindings.Attribute2.inputValue}"
                                   label="#{bindings.ReceiveDetailVO1.hints.Attribute2.label}"
                                   required="#{bindings.ReceiveDetailVO1.hints.Attribute2.mandatory}"

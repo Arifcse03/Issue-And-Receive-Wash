@@ -232,6 +232,7 @@ public class LineHeaderEOViewRowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int LINEID = AttributesEnum.LineId.index();
     public static final int HEADERID = AttributesEnum.HeaderId.index();
     public static final int BUYERID = AttributesEnum.BuyerId.index();

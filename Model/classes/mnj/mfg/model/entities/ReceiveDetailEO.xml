@@ -445,6 +445,17 @@
       <Attr Name="_DisplaySize" Value="250"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="BpoId"
+    ColumnName="BPO_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="MNJ_MFG_ISSUE_REC_WASH_D">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="ReciveSizeInseemDEO"
     Association="mnj.mfg.model.entities.RecInseamSizeDFkAssoc"

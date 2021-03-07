@@ -16,13 +16,14 @@
     </SchemaBasedProperties>
   </Properties>
   <ViewLinkDefEnd
-    Name="HeaderVO"
+    Name="LineHeaderEOView"
     Cardinality="1"
     Owner="mnj.mfg.model.views.LineHeaderEOView"
     Source="true">
     <DesignTime>
       <Attr Name="_finderName" Value="LineHeaderEOView"/>
       <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_accessor" Value="true"/>
     </DesignTime>
     <AttrArray Name="Attributes">
       <Item Value="mnj.mfg.model.views.LineHeaderEOView.LineId"/>

@@ -20,62 +20,21 @@
     </SchemaBasedProperties>
   </Properties>
   <Variable
-    Name="P_Buyer"
+    Name="poc_id"
     Kind="where"
-    Type="java.lang.String"
-    DefaultValue="adf.context.sessionScope.CustomerIdS">
-    <Properties>
-      <SchemaBasedProperties>
-        <DISPLAYHINT
-          Value="Hide"/>
-      </SchemaBasedProperties>
-    </Properties>
-  </Variable>
-  <Variable
-    Name="P_Style"
-    Kind="where"
-    Type="java.lang.String"
-    DefaultValue="adf.context.sessionScope.style">
-    <Properties>
-      <SchemaBasedProperties>
-        <DISPLAYHINT
-          Value="Hide"/>
-      </SchemaBasedProperties>
-    </Properties>
-  </Variable>
-  <Variable
-    Name="P_Season"
-    Kind="where"
-    Type="java.lang.String"
-    DefaultValue="adf.context.sessionScope.season">
-    <Properties>
-      <SchemaBasedProperties>
-        <DISPLAYHINT
-          Value="Hide"/>
-      </SchemaBasedProperties>
-    </Properties>
-  </Variable>
+    Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[select l.attribute1 BPO,
-       l.attribute2 STN,
-       l.attribute3 Color,
-       l.quantity Quantity, 
-       l.production_type Production_Type,
-       l.wash_type Wash_Type,
-       l.ISSUANCE_CHALLAN_NO,
-       l.attribute7 Wash_Unwash
-from MNJ_ISSUE_REC_WASH_DEL_L l
-where (SELECT DISTINCT ac.CUSTOMER_ID
-          FROM hz_cust_accounts hca, hz_parties hp, ar_customers ac
-         WHERE     hp.PARTY_ID = hca.PARTY_ID
-               AND hca.CUST_ACCOUNT_ID = ac.CUSTOMER_ID
-               AND hp.Known_as = l.attribute6
-               and hp.KNOWN_AS is not null
-               and ac.STATUS = 'A'
-               and ac.CUSTOMER_NAME_PHONETIC = 'M'
-                and rownum  =1) = :P_Buyer
-and l.attribute5 = :P_Style
-and l.attribute4 = :P_Season]]>
+    <![CDATA[select  bpo.bpo BPO,
+bpo.bpo_id STN,
+pl.color,
+l.quantity Quantity,
+l.production_type Production_Type,
+l.wash_type Wash_Type,
+l.ISSUANCE_CHALLAN_NO,
+l.attribute7 Wash_Unwash,
+ph.poc_id POC_ID
+from MNJ_ISSUE_REC_WASH_DEL_L l ,xx_om_bpo_info_t bpo,xx_om_poc_h_t ph,xx_om_poc_l_t pl
+where l.bpo_id=bpo.bpo_id and pl.fob_id=bpo.fob_id and ph.poc_id=pl.poc_id and ph.poc_id=:poc_id]]>
   </SQLQuery>
   <ViewAttribute
     Name="Bpo"
@@ -259,6 +218,20 @@ and l.attribute4 = :P_Season]]>
           Value="7"/>
       </SchemaBasedProperties>
     </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PocId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="POC_ID"
+    Expression="POC_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
   </ViewAttribute>
   <ViewCriteria
     Name="BPO_LOVCriteria"

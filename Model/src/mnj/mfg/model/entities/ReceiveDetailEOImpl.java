@@ -388,6 +388,16 @@ public class ReceiveDetailEOImpl extends EntityImpl {
             }
         }
         ,
+        BpoId {
+            public Object get(ReceiveDetailEOImpl obj) {
+                return obj.getBpoId();
+            }
+
+            public void put(ReceiveDetailEOImpl obj, Object value) {
+                obj.setBpoId((Number)value);
+            }
+        }
+        ,
         ReciveSizeInseemDEO {
             public Object get(ReceiveDetailEOImpl obj) {
                 return obj.getReciveSizeInseemDEO();
@@ -473,6 +483,7 @@ public class ReceiveDetailEOImpl extends EntityImpl {
     public static final int WASHTYPE = AttributesEnum.WashType.index();
     public static final int PRODUCTIONTYPE = AttributesEnum.ProductionType.index();
     public static final int WASHEMDPRINTINVORG = AttributesEnum.WashEmdPrintInvorg.index();
+    public static final int BPOID = AttributesEnum.BpoId.index();
     public static final int RECIVESIZEINSEEMDEO = AttributesEnum.ReciveSizeInseemDEO.index();
     public static final int LINEHEADEREO = AttributesEnum.LineHeaderEO.index();
 
@@ -1067,6 +1078,22 @@ public class ReceiveDetailEOImpl extends EntityImpl {
      */
     public void setWashEmdPrintInvorg(String value) {
         setAttributeInternal(WASHEMDPRINTINVORG, value);
+    }
+
+    /**
+     * Gets the attribute value for BpoId, using the alias name BpoId.
+     * @return the BpoId
+     */
+    public Number getBpoId() {
+        return (Number)getAttributeInternal(BPOID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BpoId.
+     * @param value value to set the BpoId
+     */
+    public void setBpoId(Number value) {
+        setAttributeInternal(BPOID, value);
     }
 
     /**

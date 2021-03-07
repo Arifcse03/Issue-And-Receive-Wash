@@ -41,14 +41,17 @@
        ReceiveDetailEO.WASH_EMD_PRINT_INV, 
        ReceiveDetailEO.WASH_TYPE, 
        ReceiveDetailEO.PRODUCTION_TYPE, 
-       ReceiveDetailEO.RECEVING_DATE"
+       ReceiveDetailEO.RECEVING_DATE, 
+       ReceiveDetailEO.BPO_ID"
   FromList="MNJ_MFG_ISSUE_REC_WASH_D ReceiveDetailEO"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  RowClass="mnj.mfg.model.views.ReceiveDetailVORowImpl">
   <DesignTime>
-    <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
+    <Attr Name="_codeGenFlag2" Value="Access"/>
+    <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <ViewAccessor
     Name="RevBPOVO1"
@@ -69,15 +72,12 @@
   <ViewAccessor
     Name="BPO_LOV1"
     ViewObjectName="mnj.mfg.model.lov.BPO_LOV">
+    <ViewCriteriaUsage
+      Name="BPO_LOVCriteria"
+      FullName="mnj.mfg.model.lov.BPO_LOV.BPO_LOVCriteria"/>
     <ParameterMap>
-      <PIMap Variable="P_Buyer">
-        <TransientExpression><![CDATA[adf.context.sessionScope.CustomerIdS]]></TransientExpression>
-      </PIMap>
-      <PIMap Variable="P_Season">
-        <TransientExpression><![CDATA[adf.context.sessionScope.season]]></TransientExpression>
-      </PIMap>
-      <PIMap Variable="P_Style">
-        <TransientExpression><![CDATA[adf.context.sessionScope.style]]></TransientExpression>
+      <PIMap Variable="poc_id">
+        <TransientExpression><![CDATA[PocId]]></TransientExpression>
       </PIMap>
     </ParameterMap>
   </ViewAccessor>
@@ -147,7 +147,7 @@
       <Item Value="Attribute1"/>
     </AttrArray>
     <AttrArray Name="DerivedAttrNames">
-      <Item Value="Attribute2"/>
+      <Item Value="BpoId"/>
       <Item Value="Attribute3"/>
       <Item Value="Attribute4"/>
       <Item Value="ProductionType"/>
@@ -431,9 +431,30 @@
     EntityAttrName="RecevingDate"
     EntityUsage="ReceiveDetailEO"
     AliasName="RECEVING_DATE"/>
+  <ViewAttribute
+    Name="PocId"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="BpoId"
+    PrecisionRule="true"
+    EntityAttrName="BpoId"
+    EntityUsage="ReceiveDetailEO"
+    AliasName="BPO_ID"/>
   <ViewLinkAccessor
     Name="ReciveSizeInseemVO"
     ViewLink="mnj.mfg.model.views.RecInseamSizeDFkLink"
     Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="LineHeaderEOView"
+    ViewLink="mnj.mfg.model.views.IssueRecWashDFkLink"
+    Type="oracle.jbo.Row"
+    Reversed="true"
     IsUpdateable="false"/>
 </ViewObject>
