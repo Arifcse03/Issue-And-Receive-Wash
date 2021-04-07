@@ -23,7 +23,7 @@
     <![CDATA[select DISTINCT  POC_ID, (select ar.CUSTOMER_NAME
           from ar_customers ar
          where ar.CUSTOMER_ID = S.buyer_id) Buyer_NAME ,
-          BUYER_ID, SEASON, STYLE from XX_STYLE_COLOR_WASH_V s]]>
+          BUYER_ID, SEASON, STYLE from XX_ORDER_INFO_V s]]>
   </SQLQuery>
   <ViewAttribute
     Name="PocId"

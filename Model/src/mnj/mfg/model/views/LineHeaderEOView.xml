@@ -77,7 +77,7 @@
        s.SEASON,
        s.STYLE
     
-FROM MNJ_MFG_ISSUE_REC_WASH_L_H LineHeaderEO, XX_STYLE_COLOR_WASH_V s
+FROM MNJ_MFG_ISSUE_REC_WASH_L_H LineHeaderEO, XX_ORDER_INFO_V s
 where  LineHeaderEO.POC_ID=s.POC_ID]]>
   </SQLQuery>
   <EntityUsage
