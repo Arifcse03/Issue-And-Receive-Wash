@@ -49,6 +49,7 @@ public class ProductionTypeVORowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int DESCRIPTION = AttributesEnum.Description.index();
 
     /**

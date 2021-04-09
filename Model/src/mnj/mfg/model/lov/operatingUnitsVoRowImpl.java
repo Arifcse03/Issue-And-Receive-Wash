@@ -60,6 +60,7 @@ public class operatingUnitsVoRowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int ORGANIZATIONID = AttributesEnum.OrganizationId.index();
     public static final int NAME = AttributesEnum.Name.index();
 
