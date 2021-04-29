@@ -59,6 +59,7 @@ AND H.PROD_TRANS_ID = LL.PROD_TRANS_ID
 AND LL.SYSTEM_ID = l.SYSTEM_ID
 and l.poc_id=hh.poc_id
 AND l.fob_id= bpo.fob_id 
+AND CLASSIFICATION='BPO'
 UNION
 SELECT DISTINCT bpo.BPO_ID,
 bpo.BPO,
@@ -75,7 +76,7 @@ xx_om_bpo_info_t bpo,
 xx_om_poc_h_t h,
 xx_om_poc_l_t l
 WHERE MMFH.HEADER_ID = MMFL.HEADER_ID AND bpo.BPO_ID = MMFL.BPO_ID and
-bpo.fob_id=l.fob_id and h.poc_id=l.poc_id
+bpo.fob_id=l.fob_id and h.poc_id=l.poc_id AND CLASSIFICATION='BPO'
 )
 WHERE TRANS_TYPE = :p_trans_type]]>
   </SQLQuery>

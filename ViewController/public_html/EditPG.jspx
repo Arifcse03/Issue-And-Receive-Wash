@@ -880,8 +880,7 @@
                   <af:selectBooleanCheckbox value="#{row.bindings.FlagSize.inputValue}"
                                             label="#{row.bindings.FlagSize.label}"
                                             shortDesc="#{bindings.papulateSizeVo1.hints.FlagSize.tooltip}"
-                                            id="sbc1"
-                                            disabled="#{row.BalanceQuantity  lt '1' }"/>
+                                            id="sbc1"/>
                 </af:column>
                 <af:column headerText="Size" id="c58" align="center"
                            sortable="true" filterable="true"
