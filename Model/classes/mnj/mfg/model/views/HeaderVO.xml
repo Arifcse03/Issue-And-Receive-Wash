@@ -149,69 +149,78 @@
       Hint="showAndExecute"/>
   </ListBinding>
   <SQLQuery>
-    <![CDATA[SELECT HeaderEO.HEADER_ID, 
-       HeaderEO.RECEIVE_NO, 
-       HeaderEO.INVOICE_NO, 
-       HeaderEO.COLOR, 
-       HeaderEO.BUYER_ID, 
-       HeaderEO.STYLE_NAME, 
-       HeaderEO.SEASON, 
-       HeaderEO.DATE_OF_GRN,
-       HeaderEO.CREATED_BY, 
-       HeaderEO.CREATION_DATE, 
-       HeaderEO.LAST_UPDATED_BY, 
-       HeaderEO.LAST_UPDATE_DATE, 
-       HeaderEO.ORG_ID, 
-       HeaderEO.HEADER_NO, 
-       HeaderEO.LOT_NUMBER, 
-       HeaderEO.ATTRIBUTE1, 
-       HeaderEO.ATTRIBUTE2, 
-       HeaderEO.ATTRIBUTE3, 
-       HeaderEO.ATTRIBUTE4, 
-       HeaderEO.ATTRIBUTE5, 
-       HeaderEO.ATTRIBUTE6, 
-       HeaderEO.ATTRIBUTE7, 
-       HeaderEO.ATTRIBUTE8, 
-       HeaderEO.ATTRIBUTE9, 
-       HeaderEO.ATTRIBUTE10, 
-       HeaderEO.ATTRIBUTE11, 
-       HeaderEO.ATTRIBUTE12, 
-       HeaderEO.ATTRIBUTE13, 
-       HeaderEO.ATTRIBUTE14, 
-       HeaderEO.ATTRIBUTE15, 
-       HeaderEO.SALESORDER_ID, 
-       HeaderEO.TRANSACTION_TYPE, 
-       HeaderEO.TRANSACTION, 
-       HeaderEO.UPDATE_ON,
-       HeaderEO.Delivered_By,
-       HeaderEO.Received_By,
+    <![CDATA[SELECT HeaderEO.HEADER_ID,
+HeaderEO.RECEIVE_NO,
+HeaderEO.INVOICE_NO,
+HeaderEO.COLOR,
+HeaderEO.BUYER_ID,
+HeaderEO.STYLE_NAME,
+HeaderEO.SEASON,
+HeaderEO.DATE_OF_GRN,
+HeaderEO.CREATED_BY,
+HeaderEO.CREATION_DATE,
+HeaderEO.LAST_UPDATED_BY,
+HeaderEO.LAST_UPDATE_DATE,
+HeaderEO.ORG_ID,
+HeaderEO.HEADER_NO,
+HeaderEO.LOT_NUMBER,
+HeaderEO.ATTRIBUTE1,
+HeaderEO.ATTRIBUTE2,
+HeaderEO.ATTRIBUTE3,
+HeaderEO.ATTRIBUTE4,
+HeaderEO.ATTRIBUTE5,
+HeaderEO.ATTRIBUTE6,
+HeaderEO.ATTRIBUTE7,
+HeaderEO.ATTRIBUTE8,
+HeaderEO.ATTRIBUTE9,
+HeaderEO.ATTRIBUTE10,
+HeaderEO.ATTRIBUTE11,
+HeaderEO.ATTRIBUTE12,
+HeaderEO.ATTRIBUTE13,
+HeaderEO.ATTRIBUTE14,
+HeaderEO.ATTRIBUTE15,
+HeaderEO.SALESORDER_ID,
+HeaderEO.TRANSACTION_TYPE,
+HeaderEO.TRANSACTION,
+HeaderEO.UPDATE_ON,
+HeaderEO.Delivered_By,
+HeaderEO.Received_By,
 HeaderEO.WASH_EMB_PRINT_INV,
 HeaderEO.WASH_EMB_PRINT_INVORG,
 HeaderEO.REFERENCE,
 --(SELECT LH.ATTRIBUTE1 BUYER_N FROM MNJ_MFG_ISSUE_REC_WASH_L_H LH WHERE LH.HEADER_ID=HeaderEO.HEADER_ID )
-(SELECT listagg (ATTRIBUTE1 , ' , ')within group(order by HEADER_ID) FROM ( select distinct  LH.ATTRIBUTE1,lh.HEADER_ID FROM MNJ_MFG_ISSUE_REC_WASH_L_H LH WHERE LH.HEADER_ID=HeaderEO.HEADER_ID) ) BUYER_N ,
-(SELECT listagg (SEASON , ' , ')within group(order by HEADER_ID) FROM ( select distinct  LH.SEASON,lh.HEADER_ID FROM  MNJ_MFG_ISSUE_REC_WASH_L_H LH WHERE LH.HEADER_ID=HeaderEO.HEADER_ID) ) SEASON_N ,
-(SELECT listagg (STYLE_NAME , ' , ')within group(order by HEADER_ID) FROM ( select distinct  LH.STYLE_NAME,lh.HEADER_ID FROM  MNJ_MFG_ISSUE_REC_WASH_L_H LH WHERE LH.HEADER_ID=HeaderEO.HEADER_ID) ) STYLE_NAME_N  ,
-HeaderEO.ISSUE_TO_WASH_STATUS ,
-(select  RECEIVE_TO_WASH_STATUS from  MNJ_MFG_ISSUE_REC_WASH_H HeaderEO2 where  HeaderEO.receive_no = HeaderEO2.receipt_challan_no AND rownum=1) RECEIVE_TO_WASH_STATUS  ,
-
-
-(select sum (l2.Quantity) 
-from  MNJ_MFG_ISSUE_REC_WASH_L_H l , MNJ_MFG_ISSUE_REC_WASH_L l2 
-where l.line_id = L2.HEADER_ID
-and l.header_id =  HeaderEO.HEADER_ID  ) Issued_quantity ,
-
-
-(select sum (l2.Attribute4) 
-from  MNJ_MFG_ISSUE_REC_WASH_L_H l , MNJ_MFG_ISSUE_REC_WASH_D l2 
-where l.line_id = L2.HEADER_ID
-and l.header_id =  HeaderEO.HEADER_ID  ) Received_quantity 
-
-
-
+(SELECT LISTAGG (ATTRIBUTE1, ' , ') WITHIN GROUP (ORDER BY HEADER_ID)
+FROM (SELECT DISTINCT LH.ATTRIBUTE1, lh.HEADER_ID
+FROM MNJ_MFG_ISSUE_REC_WASH_L_H LH
+WHERE LH.HEADER_ID = HeaderEO.HEADER_ID))
+BUYER_N,
+(SELECT LISTAGG (SEASON, ' , ') WITHIN GROUP (ORDER BY HEADER_ID)
+FROM (SELECT DISTINCT PH.SEASON, lh.HEADER_ID
+FROM MNJ_MFG_ISSUE_REC_WASH_L_H LH, XX_OM_POC_H_T PH
+WHERE LH.HEADER_ID = HeaderEO.HEADER_ID and PH.POC_ID=LH.POC_ID))
+SEASON_N,
+(SELECT LISTAGG (STYLE, ' , ') WITHIN GROUP (ORDER BY HEADER_ID)
+FROM (SELECT DISTINCT PH.STYLE, lh.HEADER_ID
+FROM MNJ_MFG_ISSUE_REC_WASH_L_H LH, XX_OM_POC_H_T PH
+WHERE LH.HEADER_ID = HeaderEO.HEADER_ID and PH.POC_ID=LH.POC_ID))
+STYLE_NAME_N,
+HeaderEO.ISSUE_TO_WASH_STATUS,
+(SELECT RECEIVE_TO_WASH_STATUS
+FROM MNJ_MFG_ISSUE_REC_WASH_H HeaderEO2
+WHERE HeaderEO.receive_no = HeaderEO2.receipt_challan_no
+AND ROWNUM = 1)
+RECEIVE_TO_WASH_STATUS,
+(SELECT SUM (l2.Quantity)
+FROM MNJ_MFG_ISSUE_REC_WASH_L_H l, MNJ_MFG_ISSUE_REC_WASH_L l2
+WHERE l.line_id = L2.HEADER_ID AND l.header_id = HeaderEO.HEADER_ID)
+Issued_quantity,
+(SELECT SUM (l2.Attribute4)
+FROM MNJ_MFG_ISSUE_REC_WASH_L_H l, MNJ_MFG_ISSUE_REC_WASH_D l2
+WHERE l.line_id = L2.HEADER_ID AND l.header_id = HeaderEO.HEADER_ID)
+Received_quantity
 FROM MNJ_MFG_ISSUE_REC_WASH_H HeaderEO
-where HeaderEO.ORG_ID = :p_org
-order by HeaderEO.HEADER_ID desc]]>
+WHERE HeaderEO.ORG_ID = :p_org
+ORDER BY HeaderEO.HEADER_ID DESC]]>
   </SQLQuery>
   <EntityUsage
     Name="HeaderEO"

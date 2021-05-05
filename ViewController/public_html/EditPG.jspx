@@ -351,6 +351,14 @@
                              sortProperty="Attribute4" visible="false">
                     <af:outputText value="#{row.Attribute4}" id="ot15"/>
                   </af:column>
+                  <af:column headerText="Quantity"
+                             id="c71" align="center" sortable="true"
+                             filterable="true" sortProperty="Quantity">
+                    <af:outputText value="#{row.Quantity}" id="ot45">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.LineVO1.hints.Quantity.format}"/>
+                    </af:outputText>
+                  </af:column>
                   <af:column headerText="Qty"
                              id="c67" align="center" sortable="true"
                              filterable="true" sortProperty="Qty">
@@ -1052,32 +1060,39 @@
                                             shortDesc="#{bindings.FillBposVO11.hints.FlagNew.tooltip}"
                                             id="sbc3"/>
                 </af:column>
-                <af:column headerText="#{bindings.FillBposVO1.hints.BpoId.label}"
-                           id="c21">
+                <af:column headerText="BPO Id"
+                           id="c21" align="center" sortable="true"
+                           filterable="true" sortProperty="BpoId">
                   <af:outputText value="#{row.BpoId}" id="ot18"/>
                 </af:column>
-                <af:column headerText="#{bindings.FillBposVO1.hints.Bpo.label}"
-                           id="c23">
+                <af:column headerText="Bpo"
+                           id="c23" align="center" sortable="true"
+                           filterable="true" sortProperty="Bpo">
                   <af:outputText value="#{row.Bpo}" id="ot25"/>
                 </af:column>
-                <af:column headerText="#{bindings.FillBposVO1.hints.Season.label}"
-                           id="c26">
+                <af:column headerText="Season"
+                           id="c26" align="center" sortable="true"
+                           filterable="true" sortProperty="Season">
                   <af:outputText value="#{row.Season}" id="ot26"/>
                 </af:column>
-                <af:column headerText="#{bindings.FillBposVO1.hints.Style.label}"
-                           id="c27">
+                <af:column headerText="Style"
+                           id="c27" align="center" sortable="true"
+                           filterable="true" sortProperty="Style">
                   <af:outputText value="#{row.Style}" id="ot27"/>
                 </af:column>
-                <af:column headerText="#{bindings.FillBposVO1.hints.Color.label}"
-                           id="c30">
+                <af:column headerText="Color"
+                           id="c30" align="center" sortable="true"
+                           filterable="true" sortProperty="Color">
                   <af:outputText value="#{row.Color}" id="ot28"/>
                 </af:column>
-                <af:column headerText="#{bindings.FillBposVO1.hints.Wash.label}"
-                           id="c51">
+                <af:column headerText="Wash"
+                           id="c51" align="center" sortable="true"
+                           filterable="true" sortProperty="Wash">
                   <af:outputText value="#{row.Wash}" id="ot29"/>
                 </af:column>
-                <af:column headerText="#{bindings.FillBposVO1.hints.TransType.label}"
-                           id="c56">
+                <af:column headerText="Trans Type"
+                           id="c56" align="center" sortable="true"
+                           filterable="true" sortProperty="TransType">
                   <af:outputText value="#{row.TransType}" id="ot30"/>
                 </af:column>
                 <af:column headerText="#{bindings.FillBposVO1.hints.PocId.label}"
